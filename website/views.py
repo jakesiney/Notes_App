@@ -7,4 +7,5 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def index():
+    # render_template() is a Flask function that takes a template file name as an argument. Flask will look for the template file in the templates folder. Flask will then render the template file as HTML and return it to the client.
     return render_template('home.html')
