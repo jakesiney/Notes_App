@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
 from .models import Note
 from .import db
@@ -31,14 +31,13 @@ def index():
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
-    # Get the id of the note to be deleted
+    # this function expects a JSON from the INDEX.js file
     note = json.loads(request.data)
     noteId = note['noteId']
-    # Find the note in the database
     note = Note.query.get(noteId)
-    # If the note exists, delete it
     if note:
         if note.user_id == current_user.id:
             db.session.delete(note)
             db.session.commit()
+
     return jsonify({})
